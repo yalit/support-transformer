@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\ETL\Transformer;
 
+use App\ETL\Event\EventType;
+
 class TransformerContext
 {
     /**
@@ -18,11 +20,11 @@ class TransformerContext
         }
     }
 
-    public function getTransformer(string $payload): ?TransformerInterface
+    public function getTransformer(EventType $event): ?TransformerInterface
     {
         foreach ($this->transformers as $transformer)
         {
-            if ($transformer->supports($payload)){
+            if ($transformer->supports($event)){
                 return $transformer;
             }
         }
